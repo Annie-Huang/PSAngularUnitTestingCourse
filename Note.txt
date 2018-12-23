@@ -1,5 +1,9 @@
+https://app.pluralsight.com/library/courses/unit-testing-angular
 https://github.com/joeeames/PSAngularUnitTestingCourse
 C:\react\unit-testing-angular
+
+https://stackoverflow.com/questions/8108461/how-can-i-get-webstorm-to-recognize-jasmine-methods
+
 
 D:\react\PSAngularUnitTestingCourse>npm test
 
@@ -25,6 +29,46 @@ TestDouble
 Wallaby
 Cypress
 End to end tools
+
+Structuring Tests
+Arrange - all necessary preconditions and inputs
+Act - on the object or class under test
+Assert - that the expected results have occurred
+
+Techniques
+- Move less interesting setup into beforeEach()
+- Keep critical setup within the it()
+- Include Arrange, Act, and Assert inside the it()
+
+###########################
+## Isolated Unit Tests ####
+###########################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
