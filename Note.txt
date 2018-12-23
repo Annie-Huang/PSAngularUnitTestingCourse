@@ -1,0 +1,30 @@
+https://github.com/joeeames/PSAngularUnitTestingCourse
+C:\react\unit-testing-angular
+
+D:\react\PSAngularUnitTestingCourse>npm test
+
+
+###########################
+## Course Introduction ####
+###########################
+Types of Mocks
+Dummies
+Stubs
+Spies
+True mocks
+
+Tools We Will Use
+Karma
+Jasmine
+
+Other Unit Testing Tools
+Jest
+Mocha/Chai/etc
+Sinon
+TestDouble
+Wallaby
+Cypress
+End to end tools
+
+
+
