@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 import {HeroDetailComponent} from './hero-detail.component';
 import {ActivatedRoute} from '@angular/router';
 import {HeroService} from '../hero.service';
@@ -41,5 +41,45 @@ describe('HeroDetailComponent', () => {
 
         expect(fixture.nativeElement.querySelector('h2').textContent).toContain('SUPERDUDE');
     });
+
+    // // This method is messive and we need to wait 300ms for each call, don't want to do that.
+    // it('should call updateHero when save is called', (done) => {
+    //     mockHeroService.updateHero.and.returnValue(of({}));
+    //     fixture.detectChanges();
+    //
+    //     fixture.componentInstance.save();
+    //
+    //     setTimeout(() => {
+    //         expect(mockHeroService.updateHero).toHaveBeenCalled();
+    //         done();
+    //     }, 300);
+    // });
+
+    // FakeAsync can work with both a promise and a setTimeout, and pretty much all other asynchronous types of code,
+    // whereas async really is only capable of working with promises.
+    it('should call updateHero when save is called', fakeAsync(() => {
+        mockHeroService.updateHero.and.returnValue(of({}));
+        fixture.detectChanges();
+
+        fixture.componentInstance.save();
+        tick(250);
+        // // Use flush if you don't know how long you need to wait, it will just detect any aysnc call and fast forward.
+        // flush();
+
+        expect(mockHeroService.updateHero).toHaveBeenCalled();
+    }));
+
+    // // the async function will handle promises just fine, but it doesn't deal well with setTimeouts.
+    // // We couldn't use the async function to test when we were using the debounce function,
+    // it('should call updateHero when save is called', async (() => {
+    //     mockHeroService.updateHero.and.returnValue(of({}));
+    //     fixture.detectChanges();
+    //
+    //     fixture.componentInstance.save();
+    //
+    //     fixture.whenStable().then(() => {
+    //         expect(mockHeroService.updateHero).toHaveBeenCalled();
+    //     });
+    // }));
 });
 

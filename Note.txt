@@ -63,7 +63,12 @@ Techniques
 ## Advanced Topics    ####
 ##########################
 
-
+Isolated
+- Default
+Integration
+- When needed
+Deep integration tests
+- Rarely
 
 
 
