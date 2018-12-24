@@ -57,4 +57,45 @@ describe('HeroesComponent (deep tests)', () => {
         }
     });
 
+    // It is subjective whether you want to test this. If your child component have sufficient test and the parent component
+    // also has sufficient test. Then the deep test for parent can just test binding between parent and child.
+    it(`should call heroService.deleteHero when the Hero Component's delete button is clicked`, () => {
+        spyOn(fixture.componentInstance, 'delete');
+        mockHeroService.getHeroes.and.returnValue(of(HEROES));
+
+        fixture.detectChanges();
+
+        const heroComponents = fixture.debugElement.queryAll(By.directive(HeroComponent));
+        // // Method 1.
+        // heroComponents[0].query(By.css('button'))
+        //     .triggerEventHandler('click', {stopPropagation: () => {}});
+        // // Method 2.
+        // (<HeroComponent> heroComponents[0].componentInstance).delete.emit(undefined);
+        // Method 3.
+        heroComponents[0].triggerEventHandler('delete', null);  // null and undefined not really matters.
+
+
+        // // This will failed because it's not trigger focus event, just show what event you can triggered
+        // heroComponents[0].query(By.css('button'))
+        //     .triggerEventHandler('focus', {stopPropagation: () => {}});
+        expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
+    });
+
+    it('should add a new hero to the hero list when the add button is clicked', () => {
+        mockHeroService.getHeroes.and.returnValue(of(HEROES));
+        fixture.detectChanges();
+        const name = 'Mr. Ice';
+        mockHeroService.addHero.and.returnValue(of({id: 5, name: name, strength: 4}));
+        const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+        const addButton = fixture.debugElement.queryAll(By.css('button'))[0];
+
+        inputElement.value = name;
+        addButton.triggerEventHandler('click', null);
+        fixture.detectChanges();
+
+        const heroText = fixture.debugElement.query(By.css('ul')).nativeElement.textContent;
+        expect(heroText).toContain(name);
+
+
+    });
 });
